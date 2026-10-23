@@ -10,13 +10,14 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { useRouter } from "next/navigation";
+import UpdatedUserDialog from "./UpdatedUserDialog";
 
 const UsersCard = ({user}) => {
     const router = useRouter();
     const {_id} = user;
     const handleDeleteUser = async (id) => {
         const res = await fetch(`http://localhost:5000/users/${id}`,{
-            method: `DELETE`,
+            method: 'DELETE',
         });
         const afterDelete = await res.json();
          console.log("Deleted user: ", afterDelete);
@@ -40,7 +41,9 @@ const UsersCard = ({user}) => {
                 <Link href={`/users/${user._id}`}>
                     <Button className="w-full">View Details</Button>
                 </Link>
-                <Button className="mx-4">Edit</Button>
+                <UpdatedUserDialog user={user}/>
+
+                {/* </UpdatedUserDialog> */}
                 <Button
                     onClick={() => handleDeleteUser(_id)} 
                     variant="destructive"> 
